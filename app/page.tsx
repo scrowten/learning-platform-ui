@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getDomains, getDomainModules } from "@/lib/api";
 import type { Domain } from "@/lib/types";
+import { ContinueLearning } from "@/components/ContinueLearning";
 
 async function DomainCard({ domain }: { domain: Domain }) {
   let moduleCount = 0;
@@ -72,6 +73,13 @@ export default async function HomePage() {
     0
   );
 
+  const moduleMap: Record<string, string> = {};
+  counts.forEach((r) => {
+    if (r.status === "fulfilled") {
+      r.value.modules.forEach((m) => { moduleMap[m.id] = m.title; });
+    }
+  });
+
   return (
     <div className="max-w-5xl mx-auto px-6 py-12">
       <div className="mb-10">
@@ -84,6 +92,8 @@ export default async function HomePage() {
           <span><span className="text-white font-medium">{totalModules}</span> modules</span>
         </div>
       </div>
+
+      <ContinueLearning moduleMap={moduleMap} />
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {domains.map((domain) => (

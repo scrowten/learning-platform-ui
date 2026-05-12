@@ -5,6 +5,7 @@ import { getDomains, getModule, getModuleContent, getModuleNotebooks } from "@/l
 import { DifficultyBadge } from "@/components/DifficultyBadge";
 import { TagPill } from "@/components/TagPill";
 import { MarkdownContent } from "@/components/MarkdownContent";
+import { ProgressButton } from "@/components/ProgressButton";
 
 const CATEGORY_LABELS: Record<string, string> = {
   prerequisites:    "Prerequisites",
@@ -51,14 +52,21 @@ export default async function ModulePage({
   return (
     <div className="max-w-6xl mx-auto px-6 py-10">
       {/* Breadcrumb */}
-      <nav className="text-xs mb-6 flex flex-wrap items-center gap-1.5" style={{ color: "var(--color-text-lo)" }}>
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <span>/</span>
-        <Link href={`/domains/${module.domain_id}`} className="hover:text-white transition-colors">
+      <nav className="text-xs mb-6 flex flex-wrap items-center gap-1.5">
+        <Link href="/" className="transition-colors hover:text-white" style={{ color: "#60a5fa" }}>Home</Link>
+        <span style={{ color: "var(--color-text-lo)" }}>/</span>
+        <Link href={`/domains/${module.domain_id}`} className="transition-colors hover:text-white" style={{ color: "#60a5fa" }}>
           {domain?.name ?? module.domain_id}
         </Link>
-        {categoryLabel && <><span>/</span><span>{categoryLabel}</span></>}
-        <span>/</span>
+        {categoryLabel && (
+          <>
+            <span style={{ color: "var(--color-text-lo)" }}>/</span>
+            <Link href={`/domains/${module.domain_id}`} className="transition-colors hover:text-white" style={{ color: "#60a5fa" }}>
+              {categoryLabel}
+            </Link>
+          </>
+        )}
+        <span style={{ color: "var(--color-text-lo)" }}>/</span>
         <span style={{ color: "var(--color-text-md)" }}>{module.title}</span>
       </nav>
 
@@ -144,6 +152,7 @@ export default async function ModulePage({
         <aside className="mt-10 lg:mt-0 space-y-5 text-sm">
           <div className="rounded-lg p-4 space-y-3"
                style={{ background: "var(--color-surface-1)", border: "1px solid var(--color-border)" }}>
+            <ProgressButton moduleId={id} />
             {module.estimated_hours && (
               <div className="flex items-center gap-2" style={{ color: "var(--color-text-md)" }}>
                 <Clock size={13} />

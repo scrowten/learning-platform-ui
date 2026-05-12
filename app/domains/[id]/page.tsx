@@ -3,6 +3,7 @@ import Link from "next/link";
 import { getDomains, getDomainModules } from "@/lib/api";
 import type { Module } from "@/lib/types";
 import { ModuleCard } from "@/components/ModuleCard";
+import { DomainProgress } from "@/components/DomainProgress";
 
 function groupByCategory(modules: Module[]): Record<string, Module[]> {
   return modules.reduce<Record<string, Module[]>>((acc, m) => {
@@ -33,10 +34,10 @@ export default async function DomainPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
-      <nav className="text-xs mb-7 flex items-center gap-1.5" style={{ color: "var(--color-text-lo)" }}>
-        <Link href="/" className="hover:text-white transition-colors">Home</Link>
-        <span>/</span>
-        <span style={{ color: domain.color }}>{domain.name}</span>
+      <nav className="text-xs mb-7 flex items-center gap-1.5">
+        <Link href="/" className="transition-colors hover:text-white" style={{ color: "#60a5fa" }}>Home</Link>
+        <span style={{ color: "var(--color-text-lo)" }}>/</span>
+        <span style={{ color: "var(--color-text-md)" }}>{domain.name}</span>
       </nav>
 
       <div className="flex items-center gap-3 mb-8">
@@ -48,6 +49,8 @@ export default async function DomainPage({ params }: { params: Promise<{ id: str
           </p>
         </div>
       </div>
+
+      <DomainProgress moduleIds={modules.map((m) => m.id)} />
 
       {modules.length === 0 ? (
         <p style={{ color: "var(--color-text-lo)" }}>No modules yet — coming soon.</p>
