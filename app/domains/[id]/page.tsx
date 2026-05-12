@@ -13,12 +13,12 @@ function groupByCategory(modules: Module[]): Record<string, Module[]> {
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  prerequisites: "Prerequisites",
-  "ml-fundamentals": "ML Fundamentals",
-  "deep-learning": "Deep Learning",
-  "llms-genai": "LLMs & GenAI",
-  mlops: "MLOps",
-  other: "Other",
+  prerequisites:    "Prerequisites",
+  "ml-fundamentals":"ML Fundamentals",
+  "deep-learning":  "Deep Learning",
+  "llms-genai":     "LLMs & GenAI",
+  mlops:            "MLOps",
+  other:            "Other",
 };
 
 export default async function DomainPage({ params }: { params: Promise<{ id: string }> }) {
@@ -33,33 +33,31 @@ export default async function DomainPage({ params }: { params: Promise<{ id: str
 
   return (
     <div className="max-w-5xl mx-auto px-6 py-10">
-      <nav className="text-sm text-zinc-500 mb-6">
-        <Link href="/" className="hover:text-white">Home</Link>
-        <span className="mx-2">/</span>
+      <nav className="text-xs mb-7 flex items-center gap-1.5" style={{ color: "var(--color-text-lo)" }}>
+        <Link href="/" className="hover:text-white transition-colors">Home</Link>
+        <span>/</span>
         <span style={{ color: domain.color }}>{domain.name}</span>
       </nav>
 
       <div className="flex items-center gap-3 mb-8">
-        <span className="text-4xl">{domain.icon}</span>
+        <span className="text-3xl leading-none">{domain.icon}</span>
         <div>
-          <h1 className="text-2xl font-bold text-white">{domain.name}</h1>
-          <p className="text-zinc-400 text-sm mt-0.5">{modules.length} modules</p>
+          <h1 className="text-xl font-bold text-white">{domain.name}</h1>
+          <p className="text-xs mt-0.5" style={{ color: "var(--color-text-lo)" }}>
+            {modules.length} module{modules.length !== 1 ? "s" : ""}
+          </p>
         </div>
       </div>
 
       {modules.length === 0 ? (
-        <p className="text-zinc-500">No modules yet. Coming soon.</p>
+        <p style={{ color: "var(--color-text-lo)" }}>No modules yet — coming soon.</p>
       ) : (
         <div className="space-y-10">
           {Object.entries(grouped).map(([category, mods]) => (
             <section key={category}>
-              <h2 className="text-sm font-semibold uppercase tracking-widest text-zinc-500 mb-4">
-                {CATEGORY_LABELS[category] ?? category}
-              </h2>
+              <p className="section-label">{CATEGORY_LABELS[category] ?? category}</p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {mods.map((m) => (
-                  <ModuleCard key={m.id} module={m} />
-                ))}
+                {mods.map((m) => <ModuleCard key={m.id} module={m} />)}
               </div>
             </section>
           ))}

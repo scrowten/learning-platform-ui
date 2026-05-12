@@ -14,12 +14,13 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="min-h-full flex flex-col bg-zinc-950 text-zinc-100">
-        <nav className="border-b border-zinc-800 px-6 py-3 flex items-center gap-6">
-          <Link href="/" className="font-semibold text-white tracking-tight">
+      <body className="min-h-full flex flex-col">
+        <nav className="nav-bar sticky top-0 z-10 px-6 py-3.5 flex items-center gap-6">
+          <Link href="/" className="font-semibold text-white tracking-tight text-sm">
             Learning Platform
           </Link>
-          <Link href="/search" className="text-sm text-zinc-400 hover:text-white transition-colors">
+          <div className="h-4 w-px bg-[var(--color-border)]" />
+          <Link href="/search" className="nav-link text-sm">
             Search
           </Link>
         </nav>

@@ -6,12 +6,9 @@ import { TagPill } from "./TagPill";
 
 export function ModuleCard({ module }: { module: Module }) {
   return (
-    <Link
-      href={`/modules/${module.id}`}
-      className="block rounded-lg border border-zinc-800 bg-zinc-900 p-4 hover:border-zinc-600 hover:bg-zinc-800/60 transition-all group"
-    >
+    <Link href={`/modules/${module.id}`} className="card block p-4 group">
       <div className="flex items-start justify-between gap-2 mb-2">
-        <h3 className="font-medium text-white group-hover:text-zinc-100 leading-snug">
+        <h3 className="font-medium text-white leading-snug text-sm">
           {module.title}
         </h3>
         <DifficultyBadge difficulty={module.difficulty} />
@@ -25,21 +22,21 @@ export function ModuleCard({ module }: { module: Module }) {
         </div>
       )}
 
-      <div className="flex items-center gap-4 text-xs text-zinc-500">
+      <div className="flex items-center gap-4 text-xs" style={{ color: "var(--color-text-lo)" }}>
         {module.estimated_hours && (
           <span className="flex items-center gap-1">
-            <Clock size={12} />
+            <Clock size={11} />
             {module.estimated_hours}h
           </span>
         )}
         {module.prerequisites && module.prerequisites.length > 0 && (
           <span className="flex items-center gap-1">
-            <GitBranch size={12} />
+            <GitBranch size={11} />
             {module.prerequisites.length} prereq{module.prerequisites.length !== 1 ? "s" : ""}
           </span>
         )}
         {module.last_reviewed && (
-          <span>Updated {module.last_reviewed}</span>
+          <span>{module.last_reviewed}</span>
         )}
       </div>
     </Link>
